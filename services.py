@@ -1,12 +1,12 @@
 from fastapi import HTTPException, Depends
 from motor.motor_asyncio import AsyncIOMotorDatabase
 from bson import ObjectId
-from typing import List, Optional
+from typing import Optional
 
 from database import get_database
 from models import (
     ProductCreate, Product, ProductResponse, ProductCreateResponse,
-    OrderCreate, Order, OrderCreateResponse, OrderResponse, 
+    OrderCreate, OrderCreateResponse, OrderResponse, 
     ProductsListResponse, OrdersListResponse, PageInfo,
     OrderItemResponse, ProductDetails
 )

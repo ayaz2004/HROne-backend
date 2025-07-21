@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Depends, Query, Path
-from typing import Optional
 
 from models import OrderCreate, OrderCreateResponse, OrdersListResponse
 from services import OrderService, get_order_service

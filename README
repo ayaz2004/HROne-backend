@@ -1,0 +1,128 @@
+# Ecommerce API
+
+A FastAPI-based ecommerce backend application with MongoDB integration for managing products and orders.
+
+## Features
+
+- **Product Management**: Create and list products with filtering and pagination
+- **Order Management**: Create orders and retrieve user order history
+- **MongoDB Integration**: Async database operations using Motor
+- **API Documentation**: Auto-generated docs with FastAPI
+- **Docker Support**: Containerized deployment ready
+
+## Tech Stack
+
+- **FastAPI** - Modern Python web framework
+- **MongoDB** - NoSQL database with Motor async driver
+- **Pydantic** - Data validation and serialization
+- **Docker** - Containerization
+
+## Project Structure
+
+```
+├── main.py              # FastAPI app entry point
+├── models.py            # Pydantic models
+├── services.py          # Business logic services
+├── database.py          # Database connection
+├── routers/
+│   ├── products.py      # Product endpoints
+│   └── orders.py        # Order endpoints
+├── requirements.txt     # Dependencies
+├── Dockerfile          # Docker configuration
+└── .env                # Environment variables
+```
+
+## Setup
+
+### Local Development
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd HROne-backend
+   ```
+
+2. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Run the application**
+   ```bash
+   uvicorn main:app --reload
+   ```
+
+### Docker Deployment
+
+1. **Build the image**
+   ```bash
+   docker build -t ecommerce-api .
+   ```
+
+2. **Run the container**
+   ```bash
+   docker run -p 8000:8000 --env-file .env ecommerce-api
+   ```
+
+## API Endpoints
+
+### Products
+- `POST /products/` - Create a new product
+- `GET /products/` - List products with filtering and pagination
+
+### Orders
+- `POST /orders/` - Create a new order
+- `GET /orders/{user_id}` - Get user orders with pagination
+
+### Health Check
+- `GET /health` - Health check endpoint
+- `GET /` - Root endpoint
+
+## API Documentation
+
+Once the server is running, visit:
+- **Swagger UI**: http://localhost:8000/docs
+- **ReDoc**: http://localhost:8000/redoc
+
+## Example Usage
+
+### Create Product
+```bash
+curl -X POST "http://localhost:8000/products/" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "T-Shirt",
+    "price": 29.99,
+    "size": [
+      {"size": "M", "quantity": 10},
+      {"size": "L", "quantity": 5}
+    ]
+  }'
+```
+
+### Create Order
+```bash
+curl -X POST "http://localhost:8000/orders/" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "userId": "user123",
+    "limit": [
+      {"productId": "product_id_here", "qty": 2}
+    ]
+  }'
+```
+
+## Environment Variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `MONGODB_URL` | MongoDB connection string | Required |
+| `DATABASE_NAME` | Database name | Required |
+| `PORT` | Application port | 8000 |
+
+## Development
+
+- **Code formatting**: Follow PEP 8 standards
+- **Database**: MongoDB with async operations
+- **Error handling**: HTTP exceptions with proper status codes
+- **Validation**: Pydantic models for request/response validation
